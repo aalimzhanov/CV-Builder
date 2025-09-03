@@ -159,6 +159,16 @@ function CVPreview({ generalInfo, educationInfo, workInfo }) {
 												{work.startDate} - {work.endDate}
 											</p>
 										)}
+										{work.descriptions &&
+											work.descriptions.filter((d) => d.trim()).length > 0 && (
+												<ul className="work-bullets">
+													{work.descriptions
+														.filter((d) => d.trim())
+														.map((desc, i) => (
+															<li key={i}>{desc}</li>
+														))}
+												</ul>
+											)}
 									</div>
 								)
 						)}

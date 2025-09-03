@@ -30,7 +30,7 @@ function Education({ educationInfo, setEducationInfo }) {
 			<div className="section-header">
 				<h2>Education</h2>
 				<button className="add-btn" onClick={addEducation}>
-					+ Add Education
+					<span>+</span> Add Education
 				</button>
 			</div>
 			{educationInfo.map((education, index) => (
@@ -42,7 +42,7 @@ function Education({ educationInfo, setEducationInfo }) {
 								className="remove-btn"
 								onClick={() => removeEducation(education.id)}
 							>
-								Remove
+								<span>×</span> Remove
 							</button>
 						</div>
 					)}

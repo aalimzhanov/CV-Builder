@@ -16,6 +16,7 @@ function Work({ workInfo, setWorkInfo }) {
 				city: "",
 				startDate: "",
 				endDate: "",
+				descriptions: [""],
 			},
 		]);
 	};
@@ -31,7 +32,7 @@ function Work({ workInfo, setWorkInfo }) {
 			<div className="section-header">
 				<h2>Work Experience</h2>
 				<button className="add-btn" onClick={addWork}>
-					+ Add Experience
+					<span>+</span> Add Experience
 				</button>
 			</div>
 			{workInfo.map((work, index) => (
@@ -43,7 +44,7 @@ function Work({ workInfo, setWorkInfo }) {
 								className="remove-btn"
 								onClick={() => removeWork(work.id)}
 							>
-								Remove
+								<span>×</span> Remove
 							</button>
 						</div>
 					)}
@@ -88,6 +89,56 @@ function Work({ workInfo, setWorkInfo }) {
 							}
 							placeholder="End Date (or 'Present')"
 						/>
+					</div>
+					<div className="work-descriptions">
+						<label>Key Responsibilities & Achievements:</label>
+						{work.descriptions &&
+							work.descriptions.map((desc, i) => (
+								<div key={i} className="description-input-row">
+									<input
+										type="text"
+										value={desc}
+										onChange={(e) => {
+											const newDescs = [...work.descriptions];
+											newDescs[i] = e.target.value;
+											handleInputChange(work.id, "descriptions", newDescs);
+										}}
+										placeholder={`e.g. Successfully managed a team of 5 engineers${
+											i > 0 ? "" : ""
+										}`}
+									/>
+									<button
+										type="button"
+										className="remove-desc-btn"
+										onClick={() => {
+											const newDescs = work.descriptions.filter(
+												(_, idx) => idx !== i
+											);
+											handleInputChange(
+												work.id,
+												"descriptions",
+												newDescs.length ? newDescs : [""]
+											);
+										}}
+										disabled={work.descriptions.length === 1}
+										title="Remove this item"
+									>
+										×
+									</button>
+								</div>
+							))}
+						<button
+							type="button"
+							className="add-desc-btn"
+							onClick={() => {
+								handleInputChange(work.id, "descriptions", [
+									...(work.descriptions || [""]),
+									"",
+								]);
+							}}
+						>
+							<span>+</span> Add Responsibility/Achievement
+						</button>
 					</div>
 				</div>
 			))}
